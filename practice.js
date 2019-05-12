@@ -1,28 +1,21 @@
 const list = document.querySelector('#book-list ul')
 var todo,done,total;
 
-//initialcounter
+//initialcounter 
 todo = document.querySelectorAll(".status").length;
 undo = document.querySelectorAll(".undo").length;
 total = todo+undo;
-
-const initialtodoamt = document.querySelector(".todo");
-const initialundoamt = document.querySelector(".retrieve");
-const initialtotalamt = document.querySelector(".total");
-
-//initial amount displaying
-initialtodoamt.textContent = "Todo: "+todo;
-initialundoamt.textContent = "Uodo: "+undo;
-initialtotalamt.textContent = "Total: "+total;
 
 //counter will be used in clicking & item-adding
 var totalamt = document.querySelector(".total");
 var todoamt = document.querySelector(".todo");
 var undoamt = document.querySelector(".retrieve");
 
-initialtodoamt.textContent = "Todo: "+todo;
-initialundoamt.textContent = "Uodo: "+undo;
-initialtotalamt.textContent = "Total: "+total;
+//initial amount displaying
+todoamt.textContent = "Todo: "+todo;
+undoamt.textContent = "Uodo: "+undo;
+totalamt.textContent = "Total: "+total;
+
 
 //remove list+status+change+dynamic title amount display
 list.addEventListener("click",function(e){
@@ -33,9 +26,18 @@ list.addEventListener("click",function(e){
 
     if(e.target.className=='delete')
     {
-        list.removeChild(li);
-        todo--;
-        total--;
+        if(e.target.previousElementSibling.className==="status")
+        {
+            todo--;
+            total--;
+            list.removeChild(li);
+        }
+        else
+        {
+            undo--;
+            total--;
+            list.removeChild(li);
+        }
         todoamt.textContent = "Todo: "+todo;
         undoamt.textContent = "Uodo: "+undo;
         totalamt.textContent = "Total: "+total;
@@ -47,8 +49,8 @@ list.addEventListener("click",function(e){
         changests.className="Undo";
 
         //counter is here
-        todo--;
         undo++;
+        todo--;
         todoamt.textContent = "Todo: "+todo;
         undoamt.textContent = "Uodo: "+undo;
         totalamt.textContent = "Total: "+total;
@@ -60,13 +62,12 @@ list.addEventListener("click",function(e){
         undosts.className="status";
         
         //counter is here
-        undo--;
         todo++;
+        undo--;
         todoamt.textContent = "Todo: "+todo;
         undoamt.textContent = "Uodo: "+undo;
         totalamt.textContent = "Total: "+total;
     }
-
 })
 
 //hide the item
